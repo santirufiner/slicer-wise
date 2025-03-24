@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/jackc/pgx/v5/pgxpool"
-	"github.com/santirufiner/slicer-wise/internal/infrastructure/config"
+	"github.com/santirufiner/slicerwise/internal/infrastructure/config"
 	"github.com/sirupsen/logrus"
 )
 
