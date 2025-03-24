@@ -2,7 +2,7 @@ package logger
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/santirufiner/slicer-wise/pkg/logger/context"
+	"github.com/santirufiner/slicerwise/pkg/logger/context"
 	"github.com/sirupsen/logrus"
 )
 

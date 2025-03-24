@@ -1,4 +1,4 @@
-module github.com/santirufiner/slicer-wise
+module github.com/santirufiner/slicerwise
 
 go 1.23.6
 
