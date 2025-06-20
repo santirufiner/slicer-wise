@@ -14,15 +14,23 @@ func Run(connectionString string, sourceMigrationUrl string, l *logrus.Logger) e
 	if err != nil {
 		return fmt.Errorf("couldn't open db: %w", err)
 	}
-	defer db.Close()
-
+	defer func() {
+		if err = db.Close(); err != nil {
+			l.Errorf("failed to close db connection: %v", err)
+		}
+	}()
 	goose.SetLogger(l)
-	goose.SetDialect("postgres")
-
-	if err := goose.Up(db, sourceMigrationUrl); err != nil {
+	err = goose.SetDialect("postgres")
+	if err != nil {
+		return err
+	}
+	if err = goose.Up(db, sourceMigrationUrl); err != nil {
 		return fmt.Errorf("couldn't run migrations: %w", err)
 	}
-	goose.Status(db, sourceMigrationUrl)
+	err = goose.Status(db, sourceMigrationUrl)
+	if err != nil {
+		return err
+	}
 	l.Info("migrations up ran successfully")
 	return nil
 }

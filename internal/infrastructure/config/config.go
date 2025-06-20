@@ -6,18 +6,18 @@ import (
 )
 
 type Config struct {
-	LogLevel string        `split_words:"true" required:"true"`
-	Port     int           `required:"true"`
+	LogLevel string        `required:"true" envconfig:"LOG_LEVEL"`
+	Port     int           `required:"true" envconfig:"PORT"`
+	Timeout  time.Duration `required:"false" envconfig:"BASE_HTTP_TIMEOUT" default:"40s"`
 	Pg       Pg            `required:"true"`
-	Timeout  time.Duration `default:"40s" envconfig:"BASE_HTTP_TIMEOUT"`
 }
 type Pg struct {
-	Url       string        `required:"true" split_words:"true"`
-	Timeout   time.Duration `required:"true"`
-	Heartbeat time.Duration `default:"10s"`
+	Url       string        `required:"true" envconfig:"PG_URL"`
+	Timeout   time.Duration `required:"true" envconfig:"PG_TIMEOUT"`
+	Heartbeat time.Duration `envconfig:"PG_HEARTBEAT" default:"10s"`
 
-	RunMigration    bool   `default:"false" split_words:"true"`
-	SourceMigration string `default:"./scripts/migrations" split_words:"true"`
+	RunMigration    bool   `envconfig:"RUN_MIGRATION" default:"false"`
+	SourceMigration string `envconfig:"SOURCE_MIGRATION" default:"./scripts/migrations"`
 }
 
 func Load() Config {

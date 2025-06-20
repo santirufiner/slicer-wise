@@ -5,23 +5,25 @@ import (
 	"time"
 
 	"github.com/jackc/pgx/v5/pgxpool"
-	"github.com/santirufiner/slicer-wise/internal/infrastructure/config"
+	"github.com/santirufiner/slicerwise/internal/infrastructure/config"
 	"github.com/sirupsen/logrus"
 )
 
 func Connect(l *logrus.Logger, conf config.Pg) *pgxpool.Pool {
-	timeout, _ := context.WithTimeout(context.Background(), conf.Timeout)
-	db, err := pgxpool.New(timeout, conf.Url)
+	ctx, cancel := context.WithTimeout(context.Background(), conf.Timeout)
+	defer cancel()
+	db, err := pgxpool.New(ctx, conf.Url)
 	if err != nil {
 		l.Fatalf("unable to connect to pg database %v", err)
 	}
 
 	go func() {
 		for {
-			timeout, _ := context.WithTimeout(context.Background(), conf.Timeout)
-			if err := db.Ping(timeout); err != nil {
+			pingCtx, pingCancel := context.WithTimeout(context.Background(), conf.Timeout)
+			if err := db.Ping(pingCtx); err != nil {
 				l.Fatalf("pg connection lost %v", err)
 			}
+			pingCancel()
 			time.Sleep(conf.Heartbeat)
 		}
 	}()

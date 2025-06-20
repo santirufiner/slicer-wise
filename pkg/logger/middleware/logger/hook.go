@@ -30,8 +30,8 @@ func (hook logHook) Fire(entry *logrus.Entry) error {
 		return nil
 	}
 
-	// Split the file path at "slicer-wise" and take the second part
-	parts := strings.Split(file, "slicer-wise")
+	// Split the file path at "slicerwise" and take the second part
+	parts := strings.Split(file, "slicerwise")
 	if len(parts) > 1 {
 		file = parts[1]
 	}

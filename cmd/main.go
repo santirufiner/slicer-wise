@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/santirufiner/slicer-wise/internal/infrastructure/api"
-	"github.com/santirufiner/slicer-wise/internal/infrastructure/config"
-	"github.com/santirufiner/slicer-wise/internal/infrastructure/pg"
-	"github.com/santirufiner/slicer-wise/pkg/sql/migrate"
+	"github.com/santirufiner/slicerwise/internal/infrastructure/api"
+	"github.com/santirufiner/slicerwise/internal/infrastructure/config"
+	"github.com/santirufiner/slicerwise/internal/infrastructure/pg"
+	"github.com/santirufiner/slicerwise/pkg/sql/migrate"
 	"github.com/sirupsen/logrus"
 )
 

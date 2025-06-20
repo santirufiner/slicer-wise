@@ -26,3 +26,4 @@ production.env
 tmp/
 .pem
 .vscode
+.cursor

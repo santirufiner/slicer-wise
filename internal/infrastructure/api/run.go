@@ -2,7 +2,7 @@ package api
 
 import (
 	"fmt"
-	"github.com/santirufiner/slicer-wise/internal/infrastructure/api/routers"
+	"github.com/santirufiner/slicerwise/internal/infrastructure/api/routers"
 	"io"
 
 	"github.com/gin-gonic/gin"
